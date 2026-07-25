@@ -17,8 +17,8 @@
 </ul>
 <hr>
 <h2>📸 Screenshots</h2>
-<img width="1920" height="927" alt="image" src="Screenshot 2026-07-25 152057.png" /><hr>
-<img width="1920" height="927" alt="image" src="Screenshot 2026-07-25 151828.png" /><hr><h2>🛠️ Tech Stack</h2>
+<img width="1920" height="927" alt="image" src="Screenshot 2026-07-25 151828.png" /><hr>
+<img width="1920" height="927" alt="image" src="Screenshot 2026-07-25 152057.png" /><hr><h2>🛠️ Tech Stack</h2>
 <h3>Frontend</h3>
 <ul>
 <li>HTML5</li>
