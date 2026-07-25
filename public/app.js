@@ -648,28 +648,44 @@ socket.on("wrong-guess", (data) => {
   renderWrongGuess(data);
 });
 
+function getTimestampString() {
+  const now = new Date();
+  return now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+}
+
 function renderChatMessage(data) {
   const isMe = data.senderId === myId;
   const div = document.createElement("div");
   div.className = `chat-msg ${data.style || ""}`;
+  if (isMe) div.classList.add("msg-self");
+
+  const headerDiv = document.createElement("div");
+  headerDiv.className = "msg-header";
 
   const senderSpan = document.createElement("span");
   senderSpan.className = "sender";
-  senderSpan.textContent = isMe ? "You" : escapeHTML(data.name);
+  senderSpan.textContent = isMe ? "You" : (data.name || "Guest");
 
-  const colonSpan = document.createElement("span");
-  colonSpan.className = "colon";
-  colonSpan.textContent = ": ";
+  const timeSpan = document.createElement("span");
+  timeSpan.className = "timestamp";
+  timeSpan.textContent = getTimestampString();
 
-  const textSpan = document.createElement("span");
+  headerDiv.appendChild(senderSpan);
+  headerDiv.appendChild(timeSpan);
+
+  const textSpan = document.createElement("div");
   textSpan.className = "msg-text";
   textSpan.textContent = data.message;
 
-  div.appendChild(senderSpan);
-  div.appendChild(colonSpan);
+  div.appendChild(headerDiv);
   div.appendChild(textSpan);
   chatMessages.appendChild(div);
-  chatMessages.scrollTop = chatMessages.scrollHeight;
+  
+  // Smooth scroll to bottom
+  chatMessages.scrollTo({
+    top: chatMessages.scrollHeight,
+    behavior: 'smooth'
+  });
 }
 
 // Render a wrong guess as a distinct styled entry
@@ -677,47 +693,82 @@ function renderWrongGuess(data) {
   const isMe = data.senderId === myId;
   const div = document.createElement("div");
   div.className = "chat-msg wrong-guess";
+  if (isMe) div.classList.add("msg-self");
+
+  const headerDiv = document.createElement("div");
+  headerDiv.className = "msg-header";
+
+  const senderSpan = document.createElement("span");
+  senderSpan.className = "sender";
+  senderSpan.textContent = isMe ? "You" : (data.name || "Guest");
+
+  const timeSpan = document.createElement("span");
+  timeSpan.className = "timestamp";
+  timeSpan.textContent = getTimestampString();
+
+  headerDiv.appendChild(senderSpan);
+  headerDiv.appendChild(timeSpan);
+
+  const bodyDiv = document.createElement("div");
+  bodyDiv.className = "msg-body";
 
   const icon = document.createElement("span");
   icon.className = "guess-icon";
   icon.textContent = "❌ ";
 
-  const senderSpan = document.createElement("span");
-  senderSpan.className = "sender";
-  senderSpan.textContent = isMe ? "You" : escapeHTML(data.name);
-
-  const colonSpan = document.createElement("span");
-  colonSpan.className = "colon";
-  colonSpan.textContent = ": ";
-
   const textSpan = document.createElement("span");
   textSpan.className = "guess-word";
   textSpan.textContent = data.guess;
 
-  div.appendChild(icon);
-  div.appendChild(senderSpan);
-  div.appendChild(colonSpan);
-  div.appendChild(textSpan);
+  bodyDiv.appendChild(icon);
+  bodyDiv.appendChild(textSpan);
+
+  div.appendChild(headerDiv);
+  div.appendChild(bodyDiv);
   chatMessages.appendChild(div);
-  chatMessages.scrollTop = chatMessages.scrollHeight;
+  
+  // Smooth scroll to bottom
+  chatMessages.scrollTo({
+    top: chatMessages.scrollHeight,
+    behavior: 'smooth'
+  });
 }
 
 // Render system announcements (join, leave, success, reveal, etc.)
 function renderChatAnnouncement(announcement) {
   const div = document.createElement("div");
   div.className = `system-msg ${announcement.type}`;
-  div.textContent = announcement.message;
+  
+  const textSpan = document.createElement("span");
+  textSpan.textContent = announcement.message;
+
+  const timeSpan = document.createElement("span");
+  timeSpan.className = "timestamp-sys";
+  timeSpan.textContent = ` (${getTimestampString()})`;
+
+  div.appendChild(textSpan);
+  div.appendChild(timeSpan);
   chatMessages.appendChild(div);
-  chatMessages.scrollTop = chatMessages.scrollHeight;
+  
+  // Smooth scroll to bottom
+  chatMessages.scrollTo({
+    top: chatMessages.scrollHeight,
+    behavior: 'smooth'
+  });
 }
 
 // Success: show personal correct-guess celebration in chat
 socket.on("correct-guess-event", ({ score }) => {
   const div = document.createElement("div");
   div.className = "system-msg success";
-  div.textContent = `✅ Correct! You earned +${score} points.`;
+  div.textContent = `✅ Correct! You earned +${score} points. (${getTimestampString()})`;
   chatMessages.appendChild(div);
-  chatMessages.scrollTop = chatMessages.scrollHeight;
+  
+  // Smooth scroll to bottom
+  chatMessages.scrollTo({
+    top: chatMessages.scrollHeight,
+    behavior: 'smooth'
+  });
 });
 
 // Utility: HTML Escaper to prevent XSS

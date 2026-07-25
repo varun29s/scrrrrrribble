@@ -1247,36 +1247,86 @@ button {
   overflow-y: auto;
   display: flex;
   flex-direction: column;
-  gap: 8px;
-  padding: 4px;
+  gap: 12px;
+  padding: 8px;
   margin-bottom: 12px;
+  max-height: calc(100% - 60px);
 }
 
-/* Chats line item */
-.chat-msg {
-  padding: 8px 12px;
-  border-radius: var(--border-radius-md);
+/* Empty State Placeholder using CSS :empty selector */
+.chat-messages-container:empty::before {
+  content: "No messages yet. Send a guess!";
+  color: var(--text-muted);
   font-size: 0.9rem;
+  text-align: center;
+  margin: auto;
+  font-style: italic;
+}
+
+/* Chat Message Bubbles */
+.chat-msg {
+  display: flex;
+  flex-direction: column;
+  padding: 10px 14px;
+  border-radius: var(--border-radius-md);
+  font-size: 0.92rem;
   line-height: 1.4;
   word-break: break-word;
-  background: rgba(255, 255, 255, 0.02);
-  border: 1px solid rgba(255, 255, 255, 0.03);
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.04);
+  max-width: 85%;
+  align-self: flex-start;
+  transition: var(--transition-smooth);
+}
+
+.chat-msg.msg-self {
+  align-self: flex-end;
+  background: rgba(220, 38, 38, 0.1);
+  border-color: rgba(220, 38, 38, 0.2);
+}
+
+.chat-msg .msg-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 4px;
 }
 
 .chat-msg .sender {
   font-weight: 600;
   color: var(--accent-light);
-  margin-right: 4px;
+  font-size: 0.85rem;
 }
 
-/* Chats categories */
+.chat-msg.msg-self .sender {
+  color: var(--accent-secondary);
+}
+
+.chat-msg .timestamp {
+  font-size: 0.72rem;
+  color: var(--text-muted);
+  font-family: monospace;
+}
+
+.chat-msg .msg-text {
+  color: var(--text-main);
+  white-space: pre-wrap;
+}
+
+/* Chat states and categories */
+.chat-msg.guessed {
+  background: rgba(16, 185, 129, 0.08);
+  border-color: rgba(16, 185, 129, 0.2);
+}
+
 .chat-msg.guessed .sender {
   color: var(--accent-success);
 }
 
 .chat-msg.guesser-chat {
-  background: rgba(16, 185, 129, 0.06);
-  border: 1px solid rgba(16, 185, 129, 0.12);
+  background: rgba(16, 185, 129, 0.08);
+  border-color: rgba(16, 185, 129, 0.2);
 }
 
 .chat-msg.guesser-chat .sender {
@@ -1288,14 +1338,45 @@ button {
   font-style: italic;
 }
 
-/* System notifications log styles */
+/* Wrong Guesses Styling */
+.chat-msg.wrong-guess {
+  background: rgba(239, 68, 68, 0.05);
+  border-color: rgba(239, 68, 68, 0.15);
+}
+
+.chat-msg.wrong-guess .msg-body {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.chat-msg.wrong-guess .guess-word {
+  color: #fca5a5;
+  font-weight: 500;
+}
+
+.chat-msg.wrong-guess .guess-icon {
+  font-size: 0.8rem;
+}
+
+/* System Notifications log styles */
 .system-msg {
-  text-align: center;
-  font-size: 0.85rem;
-  padding: 8px 12px;
+  font-size: 0.82rem;
+  padding: 8px 14px;
   border-radius: var(--border-radius-md);
   font-weight: 600;
   word-break: break-word;
+  align-self: center;
+  text-align: center;
+  max-width: 90%;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.system-msg .timestamp-sys {
+  font-size: 0.72rem;
+  color: inherit;
+  opacity: 0.7;
+  font-family: monospace;
 }
 
 .system-msg.join {
@@ -1311,7 +1392,7 @@ button {
 }
 
 .system-msg.info {
-  background: rgba(255, 255, 255, 0.03);
+  background: rgba(255, 255, 255, 0.04);
   color: var(--text-main);
   border: 1px solid var(--border-color);
 }
@@ -1336,26 +1417,27 @@ button {
 }
 
 .system-msg.success {
-  background: rgba(16, 185, 129, 0.15);
+  background: rgba(16, 185, 129, 0.12);
   color: #34d399;
   border: 1px solid rgba(16, 185, 129, 0.25);
-  font-size: 0.9rem;
+  font-size: 0.88rem;
+  font-weight: 700;
 }
 
 .system-msg.reveal {
   background: rgba(220, 38, 38, 0.08);
   color: var(--accent-light);
-  border-top: 1px solid rgba(220, 38, 38, 0.2);
-  border-bottom: 1px solid rgba(220, 38, 38, 0.2);
+  border-top: 1px solid rgba(220, 38, 38, 0.15);
+  border-bottom: 1px solid rgba(220, 38, 38, 0.15);
   font-family: var(--font-ui);
-  font-size: 1rem;
+  font-size: 0.95rem;
 }
 
 .system-msg.game-over {
   background: rgba(245, 158, 11, 0.12);
   color: #fde047;
   border: 2px solid rgba(245, 158, 11, 0.25);
-  font-size: 1.1rem;
+  font-size: 1.05rem;
   padding: 10px;
 }
 
@@ -1363,6 +1445,7 @@ button {
 .chat-input-form {
   display: flex;
   gap: 8px;
+  padding: 4px;
 }
 
 .chat-input-form input {
