@@ -1,45 +1,65 @@
-// Word bank for Skribbl clone
+// Word bank for Skribbl clone (600 words)
 const words = [
-  // Animals
   "dog", "cat", "elephant", "giraffe", "monkey", "lion", "tiger", "bear", "rabbit", "mouse",
   "dolphin", "shark", "whale", "octopus", "penguin", "kangaroo", "panda", "koala", "fox", "wolf",
   "frog", "turtle", "snake", "crocodile", "butterfly", "spider", "bee", "ant", "chicken", "duck",
-  
-  // Food & Drinks
-  "apple", "banana", "orange", "grape", "strawberry", "watermelon", "pizza", "burger", "pasta",
-  "sushi", "taco", "sandwich", "bread", "cheese", "egg", "milk", "coffee", "tea", "juice", "soda",
+  "horse", "cow", "pig", "sheep", "goat", "donkey", "camel", "zebra", "hippo", "rhino",
+  "gorilla", "chimpanzee", "squirrel", "hedgehog", "raccoon", "otter", "beaver", "bat", "owl", "eagle",
+  "hawk", "parrot", "flamingo", "peacock", "swan", "goose", "seagull", "crow", "sparrow", "woodpecker",
+  "lobster", "crab", "shrimp", "jellyfish", "starfish", "seahorse", "stingray", "eel", "seal", "walrus",
+  "moose", "deer", "elk", "bison", "leopard", "cheetah", "jaguar", "hyena", "meerkat", "sloth",
+  "armadillo", "porcupine", "chameleon", "iguana", "lizard", "scorpion", "centipede", "snail", "worm", "mosquito",
+  "apple", "banana", "orange", "grape", "strawberry", "watermelon", "pizza", "burger", "pasta", "sushi",
+  "taco", "sandwich", "bread", "cheese", "egg", "milk", "coffee", "tea", "juice", "soda",
   "cake", "cookie", "donut", "ice cream", "chocolate", "potato", "tomato", "carrot", "onion", "garlic",
-
-  // Household Items
-  "chair", "table", "bed", "sofa", "lamp", "television", "computer", "phone", "clock", "watch",
-  "book", "pen", "pencil", "paper", "scissors", "cup", "plate", "spoon", "fork", "knife",
-  "mirror", "window", "door", "key", "brush", "soap", "towel", "pillow", "blanket", "carpet",
-
-  // Clothing & Fashion
-  "shirt", "pants", "shoes", "socks", "hat", "cap", "jacket", "coat", "dress", "skirt",
-  "glasses", "ring", "necklace", "watch", "umbrella", "bag", "backpack", "wallet", "belt", "scarf",
-
-  // Nature & Weather
-  "sun", "moon", "star", "cloud", "rain", "snow", "wind", "storm", "thunder", "rainbow",
-  "tree", "flower", "grass", "leaf", "mountain", "river", "lake", "ocean", "sea", "beach",
-  "desert", "forest", "volcano", "island", "fire", "water", "stone", "rock", "sand", "dirt",
-
-  // Transport & Vehicles
-  "car", "bus", "truck", "train", "bicycle", "motorcycle", "airplane", "helicopter", "boat", "ship",
-  "submarine", "rocket", "skateboard", "scooter", "ambulance", "police car", "fire truck", "taxi",
-
-  // Occupations & Characters
-  "doctor", "nurse", "teacher", "student", "police officer", "firefighter", "astronaut", "pilot",
-  "chef", "waiter", "artist", "singer", "actor", "farmer", "builder", "scientist", "superman",
-  "batman", "ninja", "pirate", "alien", "ghost", "monster", "zombie", "vampire", "wizard", "witch",
-
-  // Body Parts
-  "head", "hair", "eye", "ear", "nose", "mouth", "teeth", "tongue", "neck", "shoulder",
-  "arm", "elbow", "hand", "finger", "leg", "knee", "foot", "toe", "heart", "brain",
-
-  // Sports & Hobbies
-  "soccer", "football", "basketball", "baseball", "tennis", "golf", "swimming", "running", "chess",
-  "guitar", "piano", "drums", "dance", "paint", "draw", "read", "write", "sing", "game"
+  "pineapple", "mango", "peach", "pear", "cherry", "lemon", "lime", "coconut", "kiwi", "avocado",
+  "broccoli", "cabbage", "spinach", "lettuce", "cucumber", "pepper", "corn", "mushroom", "peas", "pumpkin",
+  "steak", "bacon", "sausage", "hotdog", "fries", "popcorn", "pretzel", "waffle", "pancake", "muffin",
+  "pie", "candy", "lollipop", "honey", "jam", "butter", "yogurt", "cereal", "soup", "salad",
+  "noodles", "dumpling", "burrito", "pancakes", "toast", "omelette", "milkshake", "smoothie", "lemonade", "wine",
+  "chair", "table", "bed", "sofa", "lamp", "television", "computer", "phone", "clock", "book",
+  "pen", "pencil", "paper", "scissors", "cup", "plate", "spoon", "fork", "knife", "mirror",
+  "window", "door", "key", "brush", "soap", "towel", "pillow", "blanket", "carpet", "vacuum",
+  "broom", "mop", "bucket", "candle", "vase", "fan", "heater", "toaster", "blender", "microwave",
+  "oven", "fridge", "sink", "bathtub", "shower", "toilet", "curtain", "shelf", "drawer", "hammer",
+  "nail", "screwdriver", "ladder", "flashlight", "battery", "remote", "speaker", "printer", "calendar", "shirt",
+  "pants", "shoes", "socks", "hat", "cap", "jacket", "coat", "dress", "skirt", "glasses",
+  "ring", "necklace", "watch", "umbrella", "bag", "backpack", "wallet", "belt", "scarf", "gloves",
+  "boots", "sandals", "sweater", "hoodie", "tie", "bowtie", "earrings", "bracelet", "sunglasses", "swimsuit",
+  "pajamas", "apron", "helmet", "mask", "crown", "veil", "cloak", "mitten", "sneakers", "sun",
+  "moon", "star", "cloud", "rain", "snow", "wind", "storm", "thunder", "rainbow", "tree",
+  "flower", "grass", "leaf", "mountain", "river", "lake", "ocean", "sea", "beach", "desert",
+  "forest", "volcano", "island", "fire", "water", "stone", "rock", "sand", "dirt", "lightning",
+  "hurricane", "tornado", "fog", "ice", "frost", "hail", "puddle", "waterfall", "cave", "cliff",
+  "valley", "field", "swamp", "jungle", "meadow", "glacier", "canyon", "reef", "root", "branch",
+  "seed", "petal", "thorn", "bush", "vine", "moss", "pebble", "mud", "shadow", "car",
+  "bus", "truck", "train", "bicycle", "motorcycle", "airplane", "helicopter", "boat", "ship", "submarine",
+  "rocket", "skateboard", "scooter", "ambulance", "police car", "fire truck", "taxi", "van", "tractor", "sailboat",
+  "canoe", "kayak", "hot air balloon", "spaceship", "wagon", "sled", "carriage", "subway", "tram", "ferry",
+  "jet", "glider", "unicycle", "wheelchair", "forklift", "bulldozer", "crane", "doctor", "nurse", "teacher",
+  "student", "police officer", "firefighter", "astronaut", "pilot", "chef", "waiter", "artist", "singer", "actor",
+  "farmer", "builder", "scientist", "superman", "batman", "ninja", "pirate", "alien", "ghost", "monster",
+  "zombie", "vampire", "wizard", "witch", "dentist", "lawyer", "judge", "soldier", "sailor", "king",
+  "queen", "prince", "princess", "knight", "clown", "magician", "athlete", "dancer", "musician", "photographer",
+  "journalist", "librarian", "mechanic", "electrician", "plumber", "barber", "banker", "cashier", "cleaner", "gardener",
+  "fisherman", "hunter", "explorer", "detective", "superhero", "robot", "fairy", "mermaid", "dragon", "unicorn",
+  "giant", "elf", "goblin", "troll", "head", "hair", "eye", "ear", "nose", "mouth",
+  "teeth", "tongue", "neck", "shoulder", "arm", "elbow", "hand", "finger", "leg", "knee",
+  "foot", "toe", "heart", "brain", "chin", "cheek", "lip", "eyebrow", "eyelash", "wrist",
+  "ankle", "chest", "back", "stomach", "thumb", "skin", "bone", "muscle", "lung", "skull",
+  "spine", "throat", "forehead", "soccer", "football", "basketball", "baseball", "tennis", "golf", "swimming",
+  "running", "chess", "guitar", "piano", "drums", "dance", "paint", "draw", "read", "write",
+  "sing", "game", "volleyball", "hockey", "boxing", "wrestling", "cycling", "skiing", "surfing", "skating",
+  "bowling", "archery", "fishing", "camping", "hiking", "yoga", "gymnastics", "karate", "judo", "rugby",
+  "cricket", "badminton", "puzzle", "cards", "dice", "kite", "balloon", "yo-yo", "marble", "jigsaw",
+  "trampoline", "seesaw", "violin", "trumpet", "flute", "saxophone", "harp", "banjo", "accordion", "xylophone",
+  "microphone", "headphones", "castle", "bridge", "tower", "tunnel", "maze", "throne", "shield", "sword",
+  "arrow", "bow", "treasure", "map", "compass", "telescope", "microscope", "magnet", "lantern", "torch",
+  "coin", "potion", "wand", "cauldron", "spellbook", "crystal", "gem", "diamond", "pearl", "trophy",
+  "medal", "flag", "banner", "tent", "campfire", "bell", "clock tower", "windmill", "lighthouse", "fountain",
+  "statue", "satellite", "planet", "galaxy", "comet", "asteroid", "laptop", "tablet", "camera", "drone",
+  "wifi", "internet", "website", "keyboard", "mouse pad", "earth", "mars", "jupiter", "saturn", "mercury",
+  "venus", "neptune", "uranus", "pluto", "meteor", "snowman", "scarecrow", "beehive", "spiderweb", "birthday"
 ];
 
 module.exports = words;
