@@ -18,7 +18,7 @@
 <hr>
 <h2>📸 Screenshots</h2>
 <img width="1920" height="927" alt="image" src="https://github.com/user-attachments/assets/cae2d2c4-d52a-4cb5-801f-31e5552344b8" /><hr>
-<img width="1920" height="927" alt="image" src="https://github.com/user-attachments/assets/Screenshot 2026-07-25 020206.png" /><hr>
+<img width="1920" height="927" alt="image" src="[https://github.com/user-attachments/assets/Screenshot 2026-07-25 020206.png](https://github.com/varun29s/scrrrrrribble/blob/master/Screenshot%202026-07-25%20020206.png)" /><hr>
 
 <h2>🛠️ Tech Stack</h2>
 <h3>Frontend</h3>
