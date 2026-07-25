@@ -30,7 +30,7 @@ A real-time multiplayer drawing and guessing game inspired by Skribbl.io. Player
 
 | Home | Game |
 |------|------|
-| ![Home](<img width="1920" height="927" alt="image" src="https://github.com/user-attachments/assets/cae2d2c4-d52a-4cb5-801f-31e5552344b8" />
+|(<img width="1920" height="927" alt="image" src="https://github.com/user-attachments/assets/cae2d2c4-d52a-4cb5-801f-31e5552344b8" />
 ) | ![Game](screenshots/game.png) |
 
 ---
