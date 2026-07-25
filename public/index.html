@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Scribble - Multiplayer Drawing & Guessing Game</title>
+  
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=Playpen+Sans:wght@400;700&display=swap" rel="stylesheet">
+  
+  <!-- FontAwesome for icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Landing / Home Screen -->
+  <div id="landing-screen" class="screen active">
+    <div class="landing-container">
+      <header class="landing-header">
+        <h1 class="logo-text">Scribble<span>.io</span></h1>
+        <p class="logo-sub">The ultimate drawing and guessing game</p>
+      </header>
+
+      <main class="landing-main">
+        <!-- Avatar & Name Customizer Card -->
+        <section class="card profile-card">
+          <h2 class="card-title"><i class="fa-solid fa-user-astronaut"></i> Customize Profile</h2>
+          
+          <div class="avatar-builder">
+            <button id="prev-avatar-btn" class="avatar-arrow-btn" aria-label="Previous Avatar Part"><i class="fa-solid fa-chevron-left"></i></button>
+            <div id="avatar-preview-container" class="avatar-preview-box">
+              <!-- Dynamically populated SVG avatar -->
+            </div>
+            <button id="next-avatar-btn" class="avatar-arrow-btn" aria-label="Next Avatar Part"><i class="fa-solid fa-chevron-right"></i></button>
+          </div>
+          <div class="avatar-custom-buttons">
+            <button id="customize-color-btn" class="pill-btn active">Color</button>
+            <button id="customize-eyes-btn" class="pill-btn">Eyes</button>
+            <button id="customize-mouth-btn" class="pill-btn">Mouth</button>
+          </div>
+
+          <div class="input-group">
+            <label for="nickname-input">Enter Nickname</label>
+            <input type="text" id="nickname-input" placeholder="Guest Player" maxlength="16">
+          </div>
+        </section>
+
+        <!-- Actions & Lobbies Card -->
+        <section class="card actions-card">
+          <h2 class="card-title"><i class="fa-solid fa-play"></i> Join Game</h2>
+          
+          <div class="actions-buttons">
+            <button id="play-btn" class="primary-btn"><i class="fa-solid fa-globe"></i> Play Public Game</button>
+            <button id="create-room-btn" class="secondary-btn"><i class="fa-solid fa-lock"></i> Create Private Room</button>
+          </div>
+
+          <div class="divider"><span>OR JOIN WITH CODE</span></div>
+
+          <div class="join-code-group">
+            <input type="text" id="join-code-input" placeholder="LOBBY CODE" maxlength="6">
+            <button id="join-room-btn" class="join-action-btn">Join</button>
+          </div>
+        </section>
+      </main>
+
+      <footer class="landing-footer">
+        <p>Made with &hearts; for drawing fans. Join, draw, and score points!</p>
+      </footer>
+    </div>
+  </div>
+
+  <!-- Game Room Screen -->
+  <div id="game-screen" class="screen">
+    <!-- Top Game Bar -->
+    <header class="game-header">
+      <div class="game-logo" id="leave-game-btn">
+        <span class="logo-short">Scribble</span>
+      </div>
+
+      <div class="game-stats">
+        <div class="stat-badge" id="round-counter">
+          <span class="label">Round</span>
+          <span class="value" id="round-value">1/3</span>
+        </div>
+
+        <div class="word-info">
+          <!-- Guessers see hints, drawer sees full word -->
+          <div id="word-display" class="word-hint-container">_ _ _ _ _</div>
+          <div id="word-length-hint" class="word-len-label">5 letters</div>
+        </div>
+
+        <div class="timer-badge" id="timer-badge">
+          <svg class="timer-ring" width="50" height="50">
+            <circle class="timer-ring-circle-bg" stroke="#1f2937" stroke-width="4" fill="transparent" r="20" cx="25" cy="25"/>
+            <circle class="timer-ring-circle" id="timer-ring-value" stroke="#3b82f6" stroke-width="4" fill="transparent" r="20" cx="25" cy="25"/>
+          </svg>
+          <span class="timer-text" id="timer-value">80</span>
+        </div>
+      </div>
+    </header>
+
+    <!-- Main Game Board -->
+    <main class="game-layout">
+      <!-- Players Leaderboard List -->
+      <aside class="players-panel card">
+        <div class="panel-header">
+          <h3><i class="fa-solid fa-users"></i> Players</h3>
+        </div>
+        <div id="players-list" class="players-list-container">
+          <!-- Dynamically populated players -->
+        </div>
+        <div id="lobby-settings-panel" class="lobby-settings-box hidden">
+          <div class="settings-title">Lobby Settings (Host)</div>
+          <div class="settings-row">
+            <label for="settings-rounds">Rounds</label>
+            <select id="settings-rounds">
+              <option value="2">2</option>
+              <option value="3" selected>3</option>
+              <option value="5">5</option>
+              <option value="8">8</option>
+              <option value="10">10</option>
+            </select>
+          </div>
+          <div class="settings-row">
+            <label for="settings-time">Draw Time</label>
+            <select id="settings-time">
+              <option value="30">30s</option>
+              <option value="60">60s</option>
+              <option value="80" selected>80s</option>
+              <option value="120">120s</option>
+              <option value="180">180s</option>
+            </select>
+          </div>
+          <button id="start-game-btn" class="host-start-btn"><i class="fa-solid fa-play"></i> Start Game</button>
+        </div>
+        
+        <div id="lobby-invite-box" class="lobby-invite-box hidden">
+          <p>Invite friends with this code:</p>
+          <div class="invite-link-row">
+            <span id="invite-code-text">CODE</span>
+            <button id="copy-invite-btn" title="Copy code"><i class="fa-solid fa-copy"></i></button>
+          </div>
+        </div>
+      </aside>
+
+      <!-- Central Drawing Board -->
+      <section class="canvas-panel">
+        <div class="canvas-wrapper">
+          <canvas id="drawing-canvas" width="800" height="600"></canvas>
+
+          <!-- Word Selection Overlay -->
+          <div id="word-select-overlay" class="canvas-overlay hidden">
+            <div class="overlay-card">
+              <h3>Choose a word to draw</h3>
+              <div class="word-options" id="word-options-container">
+                <button class="word-choice-btn">Word 1</button>
+                <button class="word-choice-btn">Word 2</button>
+                <button class="word-choice-btn">Word 3</button>
+              </div>
+              <p class="overlay-note">Choose within 15 seconds, or one will be auto-selected.</p>
+            </div>
+          </div>
+
+          <!-- Intermission / Word Reveal Overlay -->
+          <div id="reveal-overlay" class="canvas-overlay hidden">
+            <div class="overlay-card reveal-card">
+              <h3 id="reveal-status-title">Turn Over!</h3>
+              <p class="revealed-word-reveal">The word was: <strong id="revealed-word-value">APPLE</strong></p>
+              <div class="round-scores-list" id="round-scores-container">
+                <!-- Dynamically populated scoreboard for this round -->
+              </div>
+            </div>
+          </div>
+
+          <!-- Game Over / Podium Overlay -->
+          <div id="podium-overlay" class="canvas-overlay hidden">
+            <div class="overlay-card podium-card">
+              <h2><i class="fa-solid fa-trophy"></i> Final Standings</h2>
+              <div class="podium-container" id="podium-container">
+                <!-- Dynamically populated podium (1st, 2nd, 3rd) -->
+              </div>
+              <button id="return-to-lobby-btn" class="primary-btn">Back to Lobby</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Canvas Controls Toolbar -->
+        <div id="canvas-toolbar" class="canvas-toolbar-container hidden">
+          <!-- Brush tools -->
+          <div class="tool-group">
+            <button id="tool-brush" class="tool-btn active" title="Brush"><i class="fa-solid fa-paintbrush"></i></button>
+            <button id="tool-fill" class="tool-btn" title="Fill Bucket"><i class="fa-solid fa-fill-drip"></i></button>
+            <button id="tool-eraser" class="tool-btn" title="Eraser"><i class="fa-solid fa-eraser"></i></button>
+          </div>
+
+          <!-- Brush size slider / selector -->
+          <div class="tool-group size-group">
+            <span class="toolbar-label">Size:</span>
+            <div class="brush-sizes">
+              <button class="size-btn active" data-size="4"><span class="dot size-xs"></span></button>
+              <button class="size-btn" data-size="10"><span class="dot size-sm"></span></button>
+              <button class="size-btn" data-size="20"><span class="dot size-md"></span></button>
+              <button class="size-btn" data-size="40"><span class="dot size-lg"></span></button>
+            </div>
+          </div>
+
+          <!-- Color palette grid -->
+          <div class="tool-group color-palette-container">
+            <div class="color-grid">
+              <button class="color-btn active" data-color="#000000" style="background-color: #000000;"></button>
+              <button class="color-btn" data-color="#808080" style="background-color: #808080;"></button>
+              <button class="color-btn" data-color="#ffffff" style="background-color: #ffffff;"></button>
+              <button class="color-btn" data-color="#e11d48" style="background-color: #e11d48;"></button>
+              <button class="color-btn" data-color="#ea580c" style="background-color: #ea580c;"></button>
+              <button class="color-btn" data-color="#eab308" style="background-color: #eab308;"></button>
+              <button class="color-btn" data-color="#16a34a" style="background-color: #16a34a;"></button>
+              <button class="color-btn" data-color="#2563eb" style="background-color: #2563eb;"></button>
+              <button class="color-btn" data-color="#7c3aed" style="background-color: #7c3aed;"></button>
+              <button class="color-btn" data-color="#db2777" style="background-color: #db2777;"></button>
+            </div>
+          </div>
+
+          <!-- Clear / Undo actions -->
+          <div class="tool-group action-group">
+            <button id="action-undo" class="tool-btn" title="Undo"><i class="fa-solid fa-rotate-left"></i></button>
+            <button id="action-clear" class="tool-btn" title="Clear Canvas"><i class="fa-solid fa-trash-can"></i></button>
+          </div>
+        </div>
+      </section>
+
+      <!-- Chats, Guesses & System Notifications Panel -->
+      <aside class="chat-panel card">
+        <div class="panel-header">
+          <h3><i class="fa-solid fa-comments"></i> Chat & Guesses</h3>
+        </div>
+
+        <div id="chat-messages" class="chat-messages-container">
+          <!-- Dynamic chat logs -->
+        </div>
+
+        <form id="chat-form" class="chat-input-form">
+          <input type="text" id="chat-input" placeholder="Type your guess here..." autocomplete="off" maxlength="80">
+          <button type="submit" id="chat-send-btn" aria-label="Send Message"><i class="fa-solid fa-paper-plane"></i></button>
+        </form>
+      </aside>
+    </main>
+  </div>
+
+  <!-- Socket.io client script -->
+  <script src="/socket.io/socket.io.js"></script>
+  <!-- Canvas script module -->
+  <script src="canvas.js"></script>
+  <!-- Main application script -->
+  <script src="app.js"></script>
+</body>
+</html>

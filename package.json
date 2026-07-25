@@ -1,0 +1,19 @@
+{
+  "name": "skribble-clone",
+  "version": "1.0.0",
+  "description": "A real-time multiplayer drawing and guessing game clone of skribbl.io",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "nodemon server.js"
+  },
+  "dependencies": {
+    "express": "^4.21.2",
+    "socket.io": "^4.8.1"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.9"
+  },
+  "author": "",
+  "license": "ISC"
+}
