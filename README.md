@@ -134,4 +134,4 @@ NODE_ENV=production
 <h2>📄 License</h2>
 <p>This project is licensed under the MIT License.</p>
 <hr>
-<p>Made with ❤️ by <strong>Varun BS</strong></p>
+<p>Made with ❤️ by <strong>Pratham , Prashanth , Varun</strong></p>
